@@ -338,7 +338,7 @@ export default function Home() {
             <BracketFrame
               interactive
               className="rounded-[var(--radius-spade-panel)] p-10 md:p-16 text-center"
-              style={{ background: "var(--surface-card)", boxShadow: "var(--shadow-card)" }}
+              style={{ background: "var(--paper)", border: "1px solid var(--line)", boxShadow: "var(--shadow-card)" }}
             >
               <MonoLabel marker>► READY WHEN YOU ARE</MonoLabel>
               <h2 className="font-display mt-5 mx-auto max-w-2xl tracking-[-0.02em]" style={{ fontSize: "var(--type-display)", fontWeight: 800 }}>
@@ -371,12 +371,12 @@ function FeatureTile({ f }: { f: (typeof FEATURES)[number] }) {
     <BracketFrame
       interactive
       className="h-full p-8 md:p-10 rounded-[var(--radius-spade-panel)] flex flex-col"
-      style={{ background: "var(--surface-card)" }}
+      style={{ background: "var(--paper)", border: "1px solid var(--line)" }}
     >
       <div className="flex items-start justify-between">
         <span
           className="grid place-items-center rounded-[var(--radius-spade)]"
-          style={{ width: 44, height: 44, background: "var(--surface-page)", border: "1px solid var(--line)" }}
+          style={{ width: 44, height: 44, background: "var(--surface-card)", border: "1px solid var(--line)" }}
         >
           <f.icon size={20} strokeWidth={1.6} style={{ color: "var(--green-950)" }} />
         </span>
