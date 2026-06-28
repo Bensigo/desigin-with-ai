@@ -189,15 +189,18 @@ a { color: inherit; text-decoration: none; }
 .bracket > .bracket-i::after {
   content: "";
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
   border: 1.5px solid var(--border-bracket);
   pointer-events: none;
 }
-.bracket::before  { left: 0;  top: 0;    border-right: 0; border-bottom: 0; }
-.bracket::after   { right: 0; top: 0;    border-left: 0;  border-bottom: 0; }
-.bracket > .bracket-i::before { left: 0;  bottom: 0; border-right: 0; border-top: 0; }
-.bracket > .bracket-i::after  { right: 0; bottom: 0; border-left: 0;  border-top: 0; }
+/* Inset 10px so the square corners sit INSIDE the rounded panel edge
+   (panels are 16px-radius) — reads as an intentional framing reticle
+   instead of square corners poking past the rounded card. */
+.bracket::before  { left: 10px;  top: 10px;    border-right: 0; border-bottom: 0; }
+.bracket::after   { right: 10px; top: 10px;    border-left: 0;  border-bottom: 0; }
+.bracket > .bracket-i::before { left: 10px;  bottom: 10px; border-right: 0; border-top: 0; }
+.bracket > .bracket-i::after  { right: 10px; bottom: 10px; border-left: 0;  border-top: 0; }
 .bracket--inverse::before,
 .bracket--inverse::after,
 .bracket--inverse > .bracket-i::before,
@@ -287,7 +290,10 @@ html { scroll-behavior: smooth; }
 }
 .lift:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
 
-/* ---- Interactive bracket — corners grow & turn lime on hover ---- */
+/* ---- Interactive bracket — corners draw toward the edge, grow & turn
+   lime on hover. Corners stay inside the 16px rounded panel edge at every
+   inset (7px → √98 ≈ 9.9px from the box corner < 16px radius), so the
+   reticle reads as "locking in" rather than poking past the card. ---- */
 .bracket-glow::before,
 .bracket-glow::after,
 .bracket-glow > .bracket-i::before,
@@ -295,15 +301,20 @@ html { scroll-behavior: smooth; }
   transition:
     border-color var(--dur-base) var(--ease-out),
     width var(--dur-base) var(--ease-out),
-    height var(--dur-base) var(--ease-out);
+    height var(--dur-base) var(--ease-out),
+    inset var(--dur-base) var(--ease-out);
 }
+.bracket-glow:hover::before  { left: 7px;  top: 7px; }
+.bracket-glow:hover::after   { right: 7px; top: 7px; }
+.bracket-glow:hover > .bracket-i::before { left: 7px;  bottom: 7px; }
+.bracket-glow:hover > .bracket-i::after  { right: 7px; bottom: 7px; }
 .bracket-glow:hover::before,
 .bracket-glow:hover::after,
 .bracket-glow:hover > .bracket-i::before,
 .bracket-glow:hover > .bracket-i::after {
   border-color: var(--lime-500);
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 
 /* ---- Sheen — a chartreuse light sweeps across on hover ---- */
@@ -439,6 +450,59 @@ html { scroll-behavior: smooth; }
   }
   @keyframes spade-drift-rev { to { transform: translateY(34px); } }
 }
+
+/* ---- Coin — premium 3D-flipping spade medallion ----
+   A preserve-3d disc spins on Y; two mirrored faces with a brushed-metal
+   radial gradient + chartreuse rim. A gentle float and a soft ground glow
+   sell the weight. Pure CSS, decorative. */
+.coin {
+  --coin-size: 72px;
+  position: relative;
+  display: inline-block;
+  width: var(--coin-size);
+  height: var(--coin-size);
+  perspective: 520px;
+  animation: coin-float 5.5s var(--ease-inout) infinite;
+}
+/* soft ground glow under the coin */
+.coin::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 70%;
+  height: 12px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--green-950) 30%, transparent), transparent 70%);
+  filter: blur(2px);
+  animation: coin-shadow 5.5s var(--ease-inout) infinite;
+  pointer-events: none;
+}
+.coin-disc {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: coin-spin 7s linear infinite;
+}
+.coin-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  background:
+    radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--lime-400) 92%, white) 0%, var(--lime-400) 38%, var(--lime-500) 72%, color-mix(in srgb, var(--lime-500) 70%, var(--green-950)) 100%);
+  color: var(--green-950);
+  box-shadow:
+    inset 0 0 0 3px color-mix(in srgb, var(--green-950) 22%, transparent),
+    inset 0 2px 6px color-mix(in srgb, white 55%, transparent),
+    0 10px 24px color-mix(in srgb, var(--green-950) 20%, transparent);
+}
+.coin-face--back { transform: rotateY(180deg); }
+@keyframes coin-spin   { to { transform: rotateY(360deg); } }
+@keyframes coin-float  { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes coin-shadow { 0%,100% { opacity: 0.55; transform: translateX(-50%) scaleX(1); } 50% { opacity: 0.28; transform: translateX(-50%) scaleX(0.82); } }
 
 /* ---- Reduced motion: strip all of it ---- */
 @media (prefers-reduced-motion: reduce) {

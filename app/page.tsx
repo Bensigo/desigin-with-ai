@@ -6,6 +6,7 @@ import {
   Badge,
   BracketFrame,
   ButtonLink,
+  Coin,
   DataField,
   Eyebrow,
   GhostLink,
@@ -154,8 +155,9 @@ export default function Home() {
                 style={{ background: "var(--green-950)", color: "var(--paper)" }}
               >
                 <div className="hatch--dark absolute inset-0 opacity-40" aria-hidden />
-                <div className="relative">
+                <div className="relative flex items-start justify-between gap-4">
                   <MonoLabel style={{ color: "var(--line-inverse-strong)" }}>► SETTLED · 30D</MonoLabel>
+                  <Coin className="shrink-0 -mt-1" />
                 </div>
                 <div className="relative">
                   <div className="font-display text-[clamp(36px,4vw,52px)] leading-none" style={{ fontWeight: 800 }}>

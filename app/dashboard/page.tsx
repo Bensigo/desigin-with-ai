@@ -15,6 +15,7 @@ import {
   DataField,
   Badge,
   Button,
+  Coin,
   Stat,
   Eyebrow,
 } from "@/components/spade/ui";
@@ -264,10 +265,13 @@ export default function DashboardPage() {
           <BracketFrame inverse interactive className="p-7 lg:p-9 rounded-[var(--radius-spade-panel)] overflow-hidden relative" style={{ background: "var(--green-950)", color: "var(--paper)" }}>
             <div className="hatch--dark absolute inset-0 opacity-40" aria-hidden />
             <div className="relative grid gap-8 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:items-center">
-              <div>
-                <MonoLabel style={{ color: "var(--line-inverse-strong)" }}>► AUTO-SWEEP TREASURY</MonoLabel>
-                <div className="font-display mt-2 text-[24px] tracking-[-0.02em]" style={{ fontWeight: 700, color: "var(--paper)" }}>
-                  Idle cash, instrumented.
+              <div className="flex items-center gap-5">
+                <Coin className="shrink-0" />
+                <div>
+                  <MonoLabel style={{ color: "var(--line-inverse-strong)" }}>► AUTO-SWEEP TREASURY</MonoLabel>
+                  <div className="font-display mt-2 text-[24px] tracking-[-0.02em]" style={{ fontWeight: 700, color: "var(--paper)" }}>
+                    Idle cash, instrumented.
+                  </div>
                 </div>
               </div>
               <Stat inverse value="4.32%" label="// APY" />

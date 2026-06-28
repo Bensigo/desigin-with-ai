@@ -82,6 +82,28 @@ export function BracketFrame({
   );
 }
 
+/* ---- Coin — a premium 3D-flipping spade medallion (CSS-only).
+   Two mirrored faces on a preserve-3d disc that rotates on Y; a soft
+   float + ground shadow sell the weight. Decorative only. ---- */
+export function Coin({ className, style }: Cls & { style?: React.CSSProperties }) {
+  return (
+    <span className={cx("coin", className)} style={style} aria-hidden>
+      <span className="coin-disc">
+        <span className="coin-face coin-face--front">
+          <svg width="46%" height="46%" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 1.2 2.6 8.1c-1.6 2-.3 5 2.3 5 .9 0 1.6-.4 2.1-1V14H9v-1.9c.5.6 1.2 1 2.1 1 2.6 0 3.9-3 2.3-5L8 1.2Z" />
+          </svg>
+        </span>
+        <span className="coin-face coin-face--back">
+          <svg width="34%" height="34%" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 1.2 2.6 8.1c-1.6 2-.3 5 2.3 5 .9 0 1.6-.4 2.1-1V14H9v-1.9c.5.6 1.2 1 2.1 1 2.6 0 3.9-3 2.3-5L8 1.2Z" />
+          </svg>
+        </span>
+      </span>
+    </span>
+  );
+}
+
 /* ---- Button / Pill ---- */
 type ButtonVariant = "primary" | "inverse" | "secondary" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
