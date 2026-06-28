@@ -337,7 +337,7 @@ export default function Home() {
           <Reveal variant="scale">
             <BracketFrame
               interactive
-              className="sheen rounded-[var(--radius-spade-panel)] p-10 md:p-16 text-center"
+              className="rounded-[var(--radius-spade-panel)] p-10 md:p-16 text-center"
               style={{ background: "var(--surface-card)", boxShadow: "var(--shadow-card)" }}
             >
               <MonoLabel marker>► READY WHEN YOU ARE</MonoLabel>
@@ -370,7 +370,7 @@ function FeatureTile({ f }: { f: (typeof FEATURES)[number] }) {
   return (
     <BracketFrame
       interactive
-      className="sheen h-full p-8 md:p-10 rounded-[var(--radius-spade-panel)] flex flex-col"
+      className="h-full p-8 md:p-10 rounded-[var(--radius-spade-panel)] flex flex-col"
       style={{ background: "var(--surface-card)" }}
     >
       <div className="flex items-start justify-between">
