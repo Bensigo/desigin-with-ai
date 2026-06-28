@@ -25,7 +25,7 @@ export function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="font-mono text-[12px] uppercase tracking-[0.1em] transition-colors hover:text-[var(--lime-600)]"
+                className="uline font-mono text-[12px] uppercase tracking-[0.1em] transition-colors hover:text-[var(--lime-600)]"
                 style={{ color: "var(--green-700)" }}
               >
                 {l.label}

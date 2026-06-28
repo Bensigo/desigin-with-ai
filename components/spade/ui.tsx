@@ -55,15 +55,27 @@ export function MonoLabel({
   );
 }
 
-/* ---- Corner-bracket frame (data-terminal motif) ---- */
+/* ---- Corner-bracket frame (data-terminal motif) ----
+   `interactive` adds the hover lift + lime bracket-glow micro-interaction. */
 export function BracketFrame({
   children,
   inverse = false,
+  interactive = false,
   className,
   style,
-}: { children: ReactNode; inverse?: boolean } & Cls & { style?: React.CSSProperties }) {
+}: { children: ReactNode; inverse?: boolean; interactive?: boolean } & Cls & {
+  style?: React.CSSProperties;
+}) {
   return (
-    <div className={cx("bracket", inverse && "bracket--inverse", className)} style={style}>
+    <div
+      className={cx(
+        "bracket",
+        inverse && "bracket--inverse",
+        interactive && "lift bracket-glow",
+        className,
+      )}
+      style={style}
+    >
       <span className="bracket-i" aria-hidden />
       {children}
     </div>
@@ -94,7 +106,7 @@ function variantStyle(v: ButtonVariant): React.CSSProperties {
 }
 
 const baseBtn =
-  "inline-flex items-center justify-center gap-2 rounded-[var(--radius-full)] font-mono uppercase tracking-[0.08em] font-medium transition-[transform,background,border-color] duration-150 active:translate-y-px hover:-translate-y-px cursor-pointer";
+  "btn-spade sheen inline-flex items-center justify-center gap-2 rounded-[var(--radius-full)] font-mono uppercase tracking-[0.08em] font-medium transition-[transform,background,border-color,box-shadow] duration-150 active:translate-y-px hover:-translate-y-px cursor-pointer";
 
 export function Button({
   children,

@@ -18,6 +18,7 @@ import {
   Stat,
   Eyebrow,
 } from "@/components/spade/ui";
+import { Reveal } from "@/components/spade/Reveal";
 
 /* ── Fake account data ─────────────────────────────── */
 const ACCOUNTS = [
@@ -61,7 +62,7 @@ export default function DashboardPage() {
               <Link
                 key={label}
                 href="/dashboard"
-                className="flex items-center gap-2.5 rounded-[var(--radius-spade)] px-3 py-2.5 font-mono text-[13px] tracking-[0.04em] transition-colors"
+                className="nav-row flex items-center gap-2.5 rounded-[var(--radius-spade)] px-3 py-2.5 font-mono text-[13px] tracking-[0.04em]"
                 style={
                   active
                     ? { background: "var(--lime-400)", color: "var(--green-950)" }
@@ -111,13 +112,13 @@ export default function DashboardPage() {
             <MonoLabel className="hidden sm:flex">► CONSOLE / OVERVIEW</MonoLabel>
           </div>
           <div className="flex items-center gap-2">
-            <button className="grid place-items-center h-10 w-10 rounded-[var(--radius-spade)]" style={{ border: "1px solid var(--line-strong)" }} aria-label="Search">
+            <button className="grid place-items-center h-10 w-10 rounded-[var(--radius-spade)] transition-[transform,border-color,background] duration-150 hover:-translate-y-px hover:border-[var(--lime-500)] hover:bg-[color-mix(in_srgb,var(--lime-400)_10%,transparent)]" style={{ border: "1px solid var(--line-strong)" }} aria-label="Search">
               <Search size={16} />
             </button>
-            <button className="grid place-items-center h-10 w-10 rounded-[var(--radius-spade)]" style={{ border: "1px solid var(--line-strong)" }} aria-label="Notifications">
+            <button className="grid place-items-center h-10 w-10 rounded-[var(--radius-spade)] transition-[transform,border-color,background] duration-150 hover:-translate-y-px hover:border-[var(--lime-500)] hover:bg-[color-mix(in_srgb,var(--lime-400)_10%,transparent)]" style={{ border: "1px solid var(--line-strong)" }} aria-label="Notifications">
               <Bell size={16} />
             </button>
-            <button className="grid place-items-center h-10 w-10 rounded-[var(--radius-spade)]" style={{ border: "1px solid var(--line-strong)" }} aria-label="Settings">
+            <button className="grid place-items-center h-10 w-10 rounded-[var(--radius-spade)] transition-[transform,border-color,background] duration-150 hover:-translate-y-px hover:border-[var(--lime-500)] hover:bg-[color-mix(in_srgb,var(--lime-400)_10%,transparent)]" style={{ border: "1px solid var(--line-strong)" }} aria-label="Settings">
               <Settings size={16} />
             </button>
             <span
@@ -131,7 +132,7 @@ export default function DashboardPage() {
 
         <main className="px-6 lg:px-10 py-8 space-y-8">
           {/* Greeting + primary actions */}
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <Reveal variant="left" className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <Eyebrow index="// LIVE">► NORTHWIND OPS</Eyebrow>
               <h1 className="font-display mt-3 text-[clamp(30px,4vw,44px)] tracking-[-0.02em]" style={{ fontWeight: 800 }}>
@@ -146,31 +147,33 @@ export default function DashboardPage() {
                 <Plus size={16} /> Move money
               </Button>
             </div>
-          </div>
+          </Reveal>
 
           {/* Top stat band */}
-          <BracketFrame className="p-7 lg:p-9 rounded-[var(--radius-spade-panel)]" style={{ background: "var(--white)" }}>
-            <div className="grid gap-8 md:grid-cols-[1.2fr_1fr_1fr] md:divide-x" style={{ borderColor: "var(--line)" }}>
-              <div className="md:pr-8">
-                <MonoLabel marker>► TOTAL POSITION</MonoLabel>
-                <div className="font-display mt-3 text-[clamp(36px,5vw,56px)] tracking-[-0.02em] leading-none" style={{ fontWeight: 800 }}>
-                  $2,418,930.04
+          <Reveal variant="scale">
+            <BracketFrame interactive className="p-7 lg:p-9 rounded-[var(--radius-spade-panel)]" style={{ background: "var(--white)" }}>
+              <div className="grid gap-8 md:grid-cols-[1.2fr_1fr_1fr] md:divide-x" style={{ borderColor: "var(--line)" }}>
+                <div className="md:pr-8">
+                  <MonoLabel marker>► TOTAL POSITION</MonoLabel>
+                  <div className="font-display mt-3 text-[clamp(36px,5vw,56px)] tracking-[-0.02em] leading-none" style={{ fontWeight: 800 }}>
+                    $2,418,930.04
+                  </div>
+                  <div className="mt-4 flex items-center gap-2">
+                    <Badge cat="rewards">+4.1% MoM</Badge>
+                    <span className="font-mono text-[12px]" style={{ color: "var(--text-muted)" }}>
+                      across 3 accounts
+                    </span>
+                  </div>
                 </div>
-                <div className="mt-4 flex items-center gap-2">
-                  <Badge cat="rewards">+4.1% MoM</Badge>
-                  <span className="font-mono text-[12px]" style={{ color: "var(--text-muted)" }}>
-                    across 3 accounts
-                  </span>
+                <div className="md:px-8">
+                  <Stat value="$84.5k" label="// IN · 30D" sub="receivables settled" />
+                </div>
+                <div className="md:px-8">
+                  <Stat value="$171k" label="// OUT · 30D" sub="payroll + infra" />
                 </div>
               </div>
-              <div className="md:px-8">
-                <Stat value="$84.5k" label="// IN · 30D" sub="receivables settled" />
-              </div>
-              <div className="md:px-8">
-                <Stat value="$171k" label="// OUT · 30D" sub="payroll + infra" />
-              </div>
-            </div>
-          </BracketFrame>
+            </BracketFrame>
+          </Reveal>
 
           {/* Accounts + transactions */}
           <div className="grid gap-6 lg:grid-cols-[1fr_1.6fr]">
@@ -182,26 +185,28 @@ export default function DashboardPage() {
                   Manage ►
                 </Link>
               </div>
-              {ACCOUNTS.map((a) => (
-                <BracketFrame key={a.no} className="p-5 rounded-[var(--radius-spade-panel)]" style={{ background: "var(--white)" }}>
-                  <div className="flex items-center justify-between">
-                    <Badge cat={a.cat}>{a.name.split(" · ")[1]}</Badge>
-                    <span className="font-mono text-[12px]" style={{ color: "var(--text-muted)" }}>
-                      {a.no}
-                    </span>
-                  </div>
-                  <div className="font-display mt-4 text-[26px] tracking-[-0.02em]" style={{ fontWeight: 700 }}>
-                    {a.balance}
-                  </div>
-                  <div className="mt-1 font-mono text-[12px] uppercase tracking-[0.08em]" style={{ color: "var(--text-muted)" }}>
-                    {a.name.split(" · ")[0]}
-                  </div>
-                </BracketFrame>
+              {ACCOUNTS.map((a, i) => (
+                <Reveal key={a.no} delay={i * 90}>
+                  <BracketFrame interactive className="p-5 rounded-[var(--radius-spade-panel)]" style={{ background: "var(--white)" }}>
+                    <div className="flex items-center justify-between">
+                      <Badge cat={a.cat}>{a.name.split(" · ")[1]}</Badge>
+                      <span className="font-mono text-[12px]" style={{ color: "var(--text-muted)" }}>
+                        {a.no}
+                      </span>
+                    </div>
+                    <div className="font-display mt-4 text-[26px] tracking-[-0.02em]" style={{ fontWeight: 700 }}>
+                      {a.balance}
+                    </div>
+                    <div className="mt-1 font-mono text-[12px] uppercase tracking-[0.08em]" style={{ color: "var(--text-muted)" }}>
+                      {a.name.split(" · ")[0]}
+                    </div>
+                  </BracketFrame>
+                </Reveal>
               ))}
             </section>
 
             {/* Transactions */}
-            <section>
+            <Reveal as="section" variant="right">
               <div className="flex items-center justify-between mb-4">
                 <MonoLabel marker>► RECENT ACTIVITY</MonoLabel>
                 <Link href="/dashboard" className="font-mono text-[11px] uppercase tracking-[0.1em]" style={{ color: "var(--lime-600)" }}>
@@ -214,7 +219,7 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={i}
-                      className="flex items-center gap-4 px-5 py-4"
+                      className="txn-row flex items-center gap-4 px-5 py-4"
                       style={{ borderTop: i === 0 ? "none" : "1px solid var(--line)" }}
                     >
                       <span
@@ -251,11 +256,12 @@ export default function DashboardPage() {
                   );
                 })}
               </div>
-            </section>
+            </Reveal>
           </div>
 
           {/* Treasury strip */}
-          <BracketFrame inverse className="p-7 lg:p-9 rounded-[var(--radius-spade-panel)] overflow-hidden relative" style={{ background: "var(--green-950)", color: "var(--paper)" }}>
+          <Reveal>
+          <BracketFrame inverse interactive className="p-7 lg:p-9 rounded-[var(--radius-spade-panel)] overflow-hidden relative" style={{ background: "var(--green-950)", color: "var(--paper)" }}>
             <div className="hatch--dark absolute inset-0 opacity-40" aria-hidden />
             <div className="relative grid gap-8 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:items-center">
               <div>
@@ -269,7 +275,7 @@ export default function DashboardPage() {
               <div className="flex md:justify-end">
                 <Link
                   href="/design-system"
-                  className="inline-flex items-center gap-2 h-11 px-5 rounded-[var(--radius-full)] font-mono text-[13px] uppercase tracking-[0.08em]"
+                  className="sheen inline-flex items-center gap-2 h-11 px-5 rounded-[var(--radius-full)] font-mono text-[13px] uppercase tracking-[0.08em] transition-transform duration-150 hover:-translate-y-px"
                   style={{ background: "var(--lime-400)", color: "var(--green-950)" }}
                 >
                   Configure ►
@@ -277,6 +283,7 @@ export default function DashboardPage() {
               </div>
             </div>
           </BracketFrame>
+          </Reveal>
         </main>
       </div>
     </div>
