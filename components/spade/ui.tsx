@@ -276,13 +276,15 @@ export function Stat({
 }
 
 /* ---- Section eyebrow (mono label + index) ---- */
-export function Eyebrow({ index, children }: { index: string; children: ReactNode }) {
+export function Eyebrow({ index, children }: { index?: string; children: ReactNode }) {
   return (
     <div className="flex items-center gap-3">
       <MonoLabel marker>{children}</MonoLabel>
-      <span className="font-mono text-[11px]" style={{ color: "var(--line-strong)" }}>
-        {index}
-      </span>
+      {index && (
+        <span className="font-mono text-[11px]" style={{ color: "var(--line-strong)" }}>
+          {index}
+        </span>
+      )}
     </div>
   );
 }
