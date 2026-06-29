@@ -23,12 +23,6 @@ export default function Home() {
         {/* ── Hero ───────────────────────────────────────── */}
         <section className="relative overflow-hidden">
           <div className="hatch drift absolute opacity-[0.5]" style={{ top: -80, bottom: -80, left: 0, right: 0 }} aria-hidden />
-          <div className="glow-blob" style={{ width: 420, height: 420, top: -120, right: -80 }} aria-hidden />
-          <div
-            className="glow-blob"
-            style={{ width: 280, height: 280, bottom: -100, left: "8%", animationDelay: "-5s" }}
-            aria-hidden
-          />
           <div className="spade-wrap relative py-20 md:py-28">
             <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-14 items-center">
               <div className="rise">
