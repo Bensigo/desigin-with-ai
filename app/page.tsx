@@ -13,6 +13,7 @@ import {
   MonoLabel,
   Stat,
 } from "@/components/spade/ui";
+import { LiveTransactions } from "@/components/spade/LiveTransactions";
 
 export default function Home() {
   return (
@@ -106,6 +107,36 @@ export default function Home() {
                     <LineChart size={40} style={{ color: "var(--lime-400)" }} strokeWidth={1.5} />
                   </div>
                 </BracketFrame>
+                {/* Animated coin price chips */}
+                <div className="mt-3 grid grid-cols-3 gap-2">
+                  {HERO_COINS.map((c, i) => (
+                    <div
+                      key={c.symbol}
+                      style={{
+                        animation: "coin-float 5s ease-in-out infinite",
+                        animationDelay: `${-i * 1.8}s`,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 3,
+                        padding: "10px 12px",
+                        borderRadius: "var(--radius-spade)",
+                        border: "1px solid rgba(255,255,255,0.12)",
+                        background: "color-mix(in srgb, var(--green-950) 88%, transparent)",
+                        backdropFilter: "blur(12px)",
+                        fontFamily: "var(--font-mono)",
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: c.color, flexShrink: 0, display: "inline-block" }} />
+                        <span style={{ fontSize: 10, letterSpacing: "0.08em", color: "rgba(244,250,238,0.5)" }}>{c.symbol}</span>
+                      </div>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "var(--paper)", lineHeight: 1.1 }}>{c.price}</div>
+                      <div style={{ fontSize: 10, color: c.pos ? "#4ade80" : "#f87171" }}>
+                        {c.pos ? "▲" : "▼"} {c.change}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -124,6 +155,37 @@ export default function Home() {
                   </span>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Live markets — coins + ledger stream ─────── */}
+        <section style={{ background: "var(--surface-terminal)", borderTop: "1px solid rgba(180,239,110,0.12)" }}>
+          <div className="spade-wrap py-20">
+            <Reveal>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+                <span className="price-pulse" style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", background: "var(--lime-400)" }} />
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.1em", color: "rgba(244,250,238,0.5)", textTransform: "uppercase" }}>
+                  Live Markets
+                </span>
+              </div>
+              <h2
+                className="font-display tracking-[-0.02em]"
+                style={{ fontSize: "var(--type-display)", fontWeight: 800, color: "var(--paper)" }}
+              >
+                Crypto rails, on the ledger.
+              </h2>
+              <p className="mt-4 max-w-lg text-[17px] leading-relaxed" style={{ color: "var(--green-400)" }}>
+                Spade accounts settle across crypto and fiat rails. Every movement — coin or wire — lands on one instrumented ledger.
+              </p>
+            </Reveal>
+            <div className="mt-12 grid lg:grid-cols-[1fr_340px] gap-6 items-start">
+              <div className="grid sm:grid-cols-3 gap-4">
+                {MARKET_COINS.map(coin => (
+                  <CoinCard key={coin.symbol} coin={coin} />
+                ))}
+              </div>
+              <LiveTransactions />
             </div>
           </div>
         </section>
@@ -395,7 +457,102 @@ function FeatureTile({ f }: { f: (typeof FEATURES)[number] }) {
   );
 }
 
+/* ---- Coin market card (sparkline + price) ---- */
+function CoinCard({ coin }: { coin: (typeof MARKET_COINS)[number] }) {
+  const polyPoints = `0,44 ${coin.spark} 120,44`;
+  const gradId = `spark-${coin.symbol.toLowerCase()}`;
+  return (
+    <div
+      style={{
+        background: "rgba(20,28,14,0.7)",
+        border: "1px solid rgba(180,239,110,0.12)",
+        borderRadius: "var(--radius-spade-panel)",
+        padding: "20px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={{ width: 8, height: 8, borderRadius: "50%", background: coin.color, display: "inline-block" }} />
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.1em", color: "rgba(244,250,238,0.5)", textTransform: "uppercase" as const }}>
+            {coin.symbol}
+          </span>
+        </div>
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: 10,
+            letterSpacing: "0.08em",
+            color: coin.pos ? "#4ade80" : "#f87171",
+            background: coin.pos ? "rgba(74,222,128,0.1)" : "rgba(248,113,113,0.1)",
+            padding: "2px 7px",
+            borderRadius: 100,
+          }}
+        >
+          {coin.pos ? "▲" : "▼"} {coin.change}
+        </span>
+      </div>
+      <div style={{ fontFamily: "var(--font-mono)", fontSize: 22, fontWeight: 700, color: "var(--paper)", letterSpacing: "-0.02em" }}>
+        {coin.price}
+      </div>
+      <svg viewBox="0 0 120 44" style={{ width: "100%", height: 44 }} preserveAspectRatio="none">
+        <defs>
+          <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={coin.pos ? "#4ade80" : "#f87171"} stopOpacity="0.3" />
+            <stop offset="100%" stopColor={coin.pos ? "#4ade80" : "#f87171"} stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <polygon points={polyPoints} fill={`url(#${gradId})`} />
+        <polyline
+          points={coin.spark}
+          fill="none"
+          stroke={coin.pos ? "#4ade80" : "#f87171"}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+      <div style={{ display: "flex", gap: 16 }}>
+        <div>
+          <div style={{ fontFamily: "var(--font-mono)", fontSize: 9, letterSpacing: "0.08em", color: "rgba(244,250,238,0.35)", marginBottom: 2 }}>MCap</div>
+          <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "rgba(244,250,238,0.7)", fontWeight: 600 }}>{coin.mcap}</div>
+        </div>
+        <div>
+          <div style={{ fontFamily: "var(--font-mono)", fontSize: 9, letterSpacing: "0.08em", color: "rgba(244,250,238,0.35)", marginBottom: 2 }}>24h Vol</div>
+          <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "rgba(244,250,238,0.7)", fontWeight: 600 }}>{coin.vol}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const TRUST = ["Northwind", "Atlas Freight", "Meridian", "Glasshaus", "Vector Labs", "Cobalt", "Driftwood"];
+
+const HERO_COINS = [
+  { symbol: "BTC", price: "$67,234", change: "+2.41%", pos: true,  color: "#f7931a" },
+  { symbol: "ETH", price: "$3,489",  change: "−0.83%", pos: false, color: "#627eea" },
+  { symbol: "SOL", price: "$142.50", change: "+5.20%", pos: true,  color: "#9945ff" },
+];
+
+const MARKET_COINS = [
+  {
+    symbol: "BTC", name: "Bitcoin",  price: "$67,234.12", change: "+2.41%", pos: true,  color: "#f7931a",
+    mcap: "$1.32T",  vol: "$28.7B",
+    spark: "0,38 10,35 20,33 30,30 40,28 50,26 60,24 70,22 80,18 90,15 100,10 110,8 120,6",
+  },
+  {
+    symbol: "ETH", name: "Ethereum", price: "$3,489.50",  change: "−0.83%", pos: false, color: "#627eea",
+    mcap: "$419.2B", vol: "$12.4B",
+    spark: "0,12 10,10 20,14 30,11 40,16 50,14 60,18 70,16 80,15 90,18 100,22 110,20 120,24",
+  },
+  {
+    symbol: "SOL", name: "Solana",   price: "$142.50",    change: "+5.20%", pos: true,  color: "#9945ff",
+    mcap: "$63.8B",  vol: "$4.2B",
+    spark: "0,40 10,38 20,35 30,36 40,30 50,26 60,24 70,20 80,16 90,12 100,8 110,6 120,4",
+  },
+];
 
 const TREASURY_STATS = [
   { value: "4.32%", label: "► TREASURY APY", sub: "Accrued and posted daily" },

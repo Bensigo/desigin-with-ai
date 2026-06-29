@@ -4,7 +4,6 @@ import { Logo, ButtonLink, MonoLabel } from "./ui";
 const LINKS = [
   { href: "/#product", label: "Product" },
   { href: "/#treasury", label: "Treasury" },
-  { href: "/crypto", label: "Crypto" },
   { href: "/design-system", label: "Design System" },
 ];
 
