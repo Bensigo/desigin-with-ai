@@ -32,7 +32,7 @@ export default function Home() {
           <div className="spade-wrap relative py-20 md:py-28">
             <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-14 items-center">
               <div className="rise">
-                <Eyebrow index="// 01">BUSINESS BANKING</Eyebrow>
+                <Eyebrow>BUSINESS BANKING</Eyebrow>
                 <h1
                   className="font-display mt-6 leading-[0.96] tracking-[-0.02em]"
                   style={{ fontSize: "var(--type-hero)", fontWeight: 800 }}
@@ -53,8 +53,7 @@ export default function Home() {
                 </h1>
                 <p className="mt-7 max-w-lg text-[var(--type-lead)] leading-relaxed" style={{ color: "var(--text-muted)" }}>
                   Spade is a neobank for operators. Accounts, corporate cards, payments and treasury
-                  on one ledger — measured, bracketed and read in real time. No dashboards full of
-                  noise. Just the numbers, instrumented.
+                  on one ledger — measured, bracketed and readable in real time or over the API.
                 </p>
                 <div className="mt-9 flex flex-wrap items-center gap-4">
                   <ButtonLink href="/login" variant="primary" size="lg">
@@ -193,7 +192,7 @@ export default function Home() {
         {/* ── Product / bento grid ───────────────────────── */}
         <section id="product" className="spade-wrap py-24">
           <Reveal>
-            <Eyebrow index="// 02">WHAT YOU OPERATE</Eyebrow>
+            <Eyebrow>WHAT YOU OPERATE</Eyebrow>
             <h2 className="font-display mt-5 max-w-2xl tracking-[-0.02em]" style={{ fontSize: "var(--type-display)", fontWeight: 800 }}>
               One ledger. Every money movement, bracketed.
             </h2>
@@ -278,7 +277,7 @@ export default function Home() {
         <section style={{ borderTop: "1px solid var(--line)", background: "var(--surface-page)" }}>
           <div className="spade-wrap py-24">
             <Reveal>
-              <Eyebrow index="// 03">HOW IT WORKS</Eyebrow>
+              <Eyebrow>HOW IT WORKS</Eyebrow>
               <h2 className="font-display mt-5 max-w-2xl tracking-[-0.02em]" style={{ fontSize: "var(--type-display)", fontWeight: 800 }}>
                 Three moves from signup to settled.
               </h2>
@@ -298,8 +297,15 @@ export default function Home() {
                   >
                     {s.dark && <div className="hatch--dark absolute inset-0 opacity-30" aria-hidden />}
                     <div
-                      className="relative font-display leading-none"
-                      style={{ fontSize: "clamp(60px,9vw,120px)", fontWeight: 800, color: s.dark ? "var(--lime-400)" : "var(--lime-500)" }}
+                      className="relative shrink-0 flex items-center justify-center rounded-full font-display"
+                      style={{
+                        width: 44,
+                        height: 44,
+                        fontSize: "15px",
+                        fontWeight: 800,
+                        border: s.dark ? "1.5px solid rgba(180,239,110,0.35)" : "1.5px solid var(--line-strong)",
+                        color: s.dark ? "var(--lime-400)" : "var(--green-950)",
+                      }}
                     >
                       {s.n}
                     </div>
@@ -326,7 +332,7 @@ export default function Home() {
           <div className="spade-wrap py-24">
             <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-14">
               <Reveal variant="left">
-                <Eyebrow index="// 04">TREASURY, INSTRUMENTED</Eyebrow>
+                <Eyebrow>TREASURY, INSTRUMENTED</Eyebrow>
                 <h2 className="font-display mt-5 tracking-[-0.02em]" style={{ fontSize: "var(--type-display)", fontWeight: 800, color: "var(--paper)" }}>
                   Idle cash should earn at the speed of your ops.
                 </h2>
@@ -340,12 +346,29 @@ export default function Home() {
                   </ButtonLink>
                 </div>
               </Reveal>
-              <div className="grid sm:grid-cols-2 gap-x-10 gap-y-12 self-center">
-                {TREASURY_STATS.map((st, i) => (
-                  <Reveal key={st.label} variant="up" delay={i * 90}>
-                    <Stat inverse value={st.value} label={st.label} sub={st.sub} />
+              <div className="self-center">
+                <Reveal variant="up">
+                  <div
+                    className="font-display tracking-[-0.03em] leading-none"
+                    style={{ fontSize: "clamp(64px,8vw,96px)", fontWeight: 800, color: "var(--lime-400)" }}
+                  >
+                    4.32%
+                  </div>
+                  <div style={{ color: "var(--paper)", fontSize: 18, fontWeight: 600, marginTop: 10 }}>
+                    APY on idle cash
+                  </div>
+                  <p style={{ color: "var(--green-400)", fontSize: 15, marginTop: 6, maxWidth: 340, lineHeight: 1.65 }}>
+                    Accrued per second and posted daily. Pull it back the moment payroll runs.
+                  </p>
+                </Reveal>
+                <div className="mt-10 flex gap-12">
+                  <Reveal variant="up" delay={90}>
+                    <Stat inverse value="T+0" label="► DOMESTIC" sub="Instant rails" />
                   </Reveal>
-                ))}
+                  <Reveal variant="up" delay={180}>
+                    <Stat inverse value="$0" label="► MONTHLY FEE" sub="No minimums" />
+                  </Reveal>
+                </div>
               </div>
             </div>
           </div>
@@ -355,7 +378,7 @@ export default function Home() {
         <section id="developers" className="spade-wrap py-24">
           <div className="grid lg:grid-cols-2 gap-14 items-center">
             <Reveal variant="left">
-              <Eyebrow index="// 05">PAYMENTS API</Eyebrow>
+              <Eyebrow>PAYMENTS API</Eyebrow>
               <h2 className="font-display mt-5 tracking-[-0.02em]" style={{ fontSize: "var(--type-display)", fontWeight: 800 }}>
                 Move money in nine lines.
               </h2>
@@ -407,7 +430,7 @@ export default function Home() {
                 Open a business account in minutes.
               </h2>
               <p className="mt-4 mx-auto max-w-md text-[17px]" style={{ color: "var(--text-muted)" }}>
-                No paperwork theatre. Verify, fund, and start moving money the same day.
+                One KYB check, then you're live. Verify, fund, and start moving money the same day.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <ButtonLink href="/login" variant="inverse" size="lg">
@@ -567,7 +590,7 @@ const STEPS = [
     dark: false,
     label: "VERIFY",
     title: "Open the account in minutes.",
-    body: "Submit your entity once. We verify against partner-bank KYB in real time — no paperwork theatre, no week-long waits.",
+    body: "Submit your entity once. We verify against partner-bank KYB in real time. Approved same day, funded the same afternoon.",
   },
   {
     n: "02",
