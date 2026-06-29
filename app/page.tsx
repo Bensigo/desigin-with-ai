@@ -23,12 +23,11 @@ export default function Home() {
         {/* ── Hero ───────────────────────────────────────── */}
         <section className="relative overflow-hidden">
           <div className="hatch drift absolute opacity-[0.5]" style={{ top: -80, bottom: -80, left: 0, right: 0 }} aria-hidden />
-          <div className="spade-wrap relative py-20 md:py-28">
+          <div className="spade-wrap relative py-28 md:py-40">
             <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-14 items-center">
               <div className="rise">
-                <Eyebrow>BUSINESS BANKING</Eyebrow>
                 <h1
-                  className="font-display mt-6 leading-[0.96] tracking-[-0.02em]"
+                  className="font-display leading-[0.96] tracking-[-0.02em]"
                   style={{ fontSize: "var(--type-hero)", fontWeight: 800 }}
                 >
                   The account that
@@ -46,8 +45,8 @@ export default function Home() {
                   .
                 </h1>
                 <p className="mt-7 max-w-lg text-[var(--type-lead)] leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                  Spade is a neobank for operators. Accounts, corporate cards, payments and treasury
-                  on one ledger — measured, bracketed and readable in real time or over the API.
+                  Spade is a neobank for operators. Accounts, corporate cards, payments and treasury.
+                  One ledger, measured and readable in real time or over the API.
                 </p>
                 <div className="mt-9 flex flex-wrap items-center gap-4">
                   <ButtonLink href="/login" variant="primary" size="lg">
@@ -115,7 +114,6 @@ export default function Home() {
                         borderRadius: "var(--radius-spade)",
                         border: "1px solid rgba(255,255,255,0.12)",
                         background: "color-mix(in srgb, var(--green-950) 88%, transparent)",
-                        backdropFilter: "blur(12px)",
                         fontFamily: "var(--font-mono)",
                       }}
                     >
@@ -154,7 +152,7 @@ export default function Home() {
 
         {/* ── Live markets — coins + ledger stream ─────── */}
         <section style={{ background: "var(--surface-terminal)", borderTop: "1px solid rgba(180,239,110,0.12)" }}>
-          <div className="spade-wrap py-20">
+          <div className="spade-wrap py-16">
             <Reveal>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
                 <span className="price-pulse" style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", background: "var(--lime-400)" }} />
@@ -169,7 +167,7 @@ export default function Home() {
                 Crypto rails, on the ledger.
               </h2>
               <p className="mt-4 max-w-lg text-[17px] leading-relaxed" style={{ color: "var(--green-400)" }}>
-                Spade accounts settle across crypto and fiat rails. Every movement — coin or wire — lands on one instrumented ledger.
+                Spade accounts settle across crypto and fiat rails. Every coin and wire lands on one instrumented ledger.
               </p>
             </Reveal>
             <div className="mt-12 grid lg:grid-cols-[1fr_340px] gap-6 items-start">
@@ -194,11 +192,11 @@ export default function Home() {
 
           <div className="mt-14 grid gap-5 md:grid-cols-6 md:auto-rows-fr">
             {/* f0 — wide */}
-            <Reveal className="md:col-span-3" delay={0}>
+            <Reveal className="md:col-span-4" delay={0}>
               <FeatureTile f={FEATURES[0]} />
             </Reveal>
             {/* f1 */}
-            <Reveal className="md:col-span-3" delay={80}>
+            <Reveal className="md:col-span-2" delay={80}>
               <FeatureTile f={FEATURES[1]} />
             </Reveal>
             {/* accent metric tile — dark */}
@@ -219,7 +217,7 @@ export default function Home() {
                     $1.2B
                   </div>
                   <p className="mt-3 text-[14px]" style={{ color: "var(--green-400)" }}>
-                    moved across Spade rails last month — every cent on one ledger.
+                    Every cent, on one ledger.
                   </p>
                 </div>
               </BracketFrame>
@@ -282,7 +280,7 @@ export default function Home() {
                   <BracketFrame
                     interactive
                     inverse={s.dark}
-                    className="p-8 md:p-12 rounded-[var(--radius-spade-panel)] overflow-hidden relative grid gap-6 md:grid-cols-[auto_1fr] md:items-center md:gap-12"
+                    className="p-8 md:p-12 rounded-[var(--radius-spade-panel)] overflow-hidden relative"
                     style={{
                       background: s.dark ? "var(--green-950)" : "var(--surface-card)",
                       color: s.dark ? "var(--paper)" : "var(--green-950)",
@@ -290,19 +288,6 @@ export default function Home() {
                     }}
                   >
                     {s.dark && <div className="hatch--dark absolute inset-0 opacity-30" aria-hidden />}
-                    <div
-                      className="relative shrink-0 flex items-center justify-center rounded-full font-display"
-                      style={{
-                        width: 44,
-                        height: 44,
-                        fontSize: "15px",
-                        fontWeight: 800,
-                        border: s.dark ? "1.5px solid rgba(180,239,110,0.35)" : "1.5px solid var(--line-strong)",
-                        color: s.dark ? "var(--lime-400)" : "var(--green-950)",
-                      }}
-                    >
-                      {s.n}
-                    </div>
                     <div className="relative">
                       <MonoLabel marker style={s.dark ? { color: "var(--line-inverse-strong)" } : undefined}>
                         {s.label}
@@ -326,7 +311,6 @@ export default function Home() {
           <div className="spade-wrap py-24">
             <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-14">
               <Reveal variant="left">
-                <Eyebrow>TREASURY, INSTRUMENTED</Eyebrow>
                 <h2 className="font-display mt-5 tracking-[-0.02em]" style={{ fontSize: "var(--type-display)", fontWeight: 800, color: "var(--paper)" }}>
                   Idle cash should earn at the speed of your ops.
                 </h2>
@@ -412,15 +396,14 @@ export default function Home() {
         </section>
 
         {/* ── CTA ────────────────────────────────────────── */}
-        <section className="spade-wrap pb-24">
+        <section className="spade-wrap pb-16">
           <Reveal variant="scale">
             <BracketFrame
               interactive
               className="rounded-[var(--radius-spade-panel)] p-10 md:p-16 text-center"
               style={{ background: "var(--paper)", border: "1px solid var(--line)", boxShadow: "var(--shadow-card)" }}
             >
-              <MonoLabel marker>► READY WHEN YOU ARE</MonoLabel>
-              <h2 className="font-display mt-5 mx-auto max-w-2xl tracking-[-0.02em]" style={{ fontSize: "var(--type-display)", fontWeight: 800 }}>
+              <h2 className="font-display mx-auto max-w-2xl tracking-[-0.02em]" style={{ fontSize: "var(--type-display)", fontWeight: 800 }}>
                 Open a business account in minutes.
               </h2>
               <p className="mt-4 mx-auto max-w-md text-[17px]" style={{ color: "var(--text-muted)" }}>
@@ -450,7 +433,7 @@ function FeatureTile({ f }: { f: (typeof FEATURES)[number] }) {
     <BracketFrame
       interactive
       className="h-full p-8 md:p-10 rounded-[var(--radius-spade-panel)] flex flex-col"
-      style={{ background: "var(--paper)", border: "1px solid var(--line)" }}
+      style={{ background: "var(--surface-card)", boxShadow: "var(--shadow-card)" }}
     >
       <div className="flex items-start justify-between">
         <span
@@ -598,7 +581,7 @@ const STEPS = [
     dark: false,
     label: "OPERATE",
     title: "Move money, instrumented.",
-    body: "Every authorization, transfer and sweep streams to one ledger — bracketed, measured and readable in real time or over the API.",
+    body: "Every authorization, transfer and sweep streams to one ledger, bracketed and measured in real time or over the API.",
   },
 ];
 

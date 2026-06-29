@@ -51,7 +51,7 @@
 
   --text-primary:   var(--green-950);
   --text-muted:     var(--green-600);
-  --text-faint:     var(--green-400);
+  --text-faint:     var(--green-700);
   --text-inverse:   var(--paper);
   --text-on-accent: var(--green-950);
   --text-accent:    var(--lime-500);
@@ -206,9 +206,9 @@ a { color: inherit; text-decoration: none; }
 .bracket--inverse > .bracket-i::before,
 .bracket--inverse > .bracket-i::after { border-color: var(--line-inverse-strong); }
 
-/* Topographic / hatch texture used behind hero panels */
-.hatch      { background-image: repeating-linear-gradient(135deg, #e7efdb 0 14px, #eef4e3 14px 28px); }
-.hatch--dark{ background-image: repeating-linear-gradient(135deg, #21331a 0 14px, #1b2a12 14px 28px); }
+/* Dot-grid texture — technical readout motif */
+.hatch      { background-image: radial-gradient(circle, var(--paper-200) 1.5px, transparent 1.5px); background-size: 22px 22px; }
+.hatch--dark{ background-image: radial-gradient(circle, rgba(180,239,110,0.15) 1.5px, transparent 1.5px); background-size: 22px 22px; }
 
 @keyframes spade-rise {
   from { opacity: 0; transform: translateY(16px); }
@@ -288,7 +288,7 @@ html { scroll-behavior: smooth; }
     border-color var(--dur-base) var(--ease-out);
   will-change: transform;
 }
-.lift:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.lift:hover { box-shadow: var(--shadow-lg); }
 
 /* ---- Interactive bracket — corners draw toward the edge, grow & turn
    lime on hover. Corners stay inside the 16px rounded panel edge at every
