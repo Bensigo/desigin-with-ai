@@ -78,7 +78,7 @@ export default function Home() {
                     className="font-display mt-3 tracking-[-0.02em]"
                     style={{ fontSize: "44px", fontWeight: 800 }}
                   >
-                    $2,418,930<span style={{ color: "var(--green-400)" }}>.04</span>
+                    $2,418,930<span style={{ color: "var(--text-muted)" }}>.04</span>
                   </div>
                   <div className="mt-5">
                     <DataField label="OPERATING" value="$1,902,440.18" />
@@ -88,7 +88,7 @@ export default function Home() {
                   </div>
                   <div
                     className="hatch--dark mt-6 rounded-[var(--radius-spade)] p-4 flex items-center justify-between"
-                    style={{ color: "var(--paper)" }}
+                    style={{ background: "var(--surface-terminal)", color: "var(--paper)" }}
                   >
                     <div>
                       <MonoLabel style={{ color: "var(--line-inverse-strong)" }}>► 30D NET FLOW</MonoLabel>
